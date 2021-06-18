@@ -5,11 +5,26 @@ import { createMaterialBottomTabNavigator } from "react-navigation-material-bott
 import IconAntDesign from "react-native-vector-icons/AntDesign";
 import IconFontAwesome from "react-native-vector-icons/FontAwesome";
 import Landing from "../screens/agriculteur/landing";
+import AjoutProduit from "../screens/agriculteur/ajout-produit";
 
 
 const LandingNav = createStackNavigator(
   {
     Landing: Landing,
+  },
+  {
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: "#0086c3",
+      },
+      headerTintColor: "white",
+    },
+  }
+);
+
+const AjoutProduitNav = createStackNavigator(
+  {
+    AjoutProduit: AjoutProduit,
   },
   {
     defaultNavigationOptions: {
@@ -32,6 +47,15 @@ const AppNav = createMaterialBottomTabNavigator(
         tabBarColor: "#0086c3",
       },
     },
+    Produit: {
+      screen: AjoutProduitNav,
+      navigationOptions: {
+        tabBarIcon: (tabInfo) => {
+          return <IconFontAwesome name="product-hunt" size={25} color="#fafafa" />;
+        },
+        tabBarColor: "#0086c3",
+      },
+    }
   },
   {
     activeColor: "white",
@@ -39,4 +63,4 @@ const AppNav = createMaterialBottomTabNavigator(
   }
 );
 
-export default createAppContainer(LandingNav);
+export default createAppContainer(AppNav);

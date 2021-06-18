@@ -58,7 +58,6 @@ const LoginA = (props) => {
 
     let responsedata = await response.json();
     setLoading(false);
-    console.log(responsedata.condidat._id)
     auth.loginA(responsedata.agriculteur._id, responsedata.token);
   };
   return (
