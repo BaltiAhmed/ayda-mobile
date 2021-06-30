@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import Auth from "./navigation/authNavigation";
-import LandingNav from "./navigation/navigation-client";
+import LandingNavClient from "./navigation/navigation-client";
 import LandingNavAgriculteur from "./navigation/navigation-agriculteur";
 import { Authcontext } from "./context/auth-context";
 import { UserAuth } from "./hooks/auth";
@@ -12,7 +12,7 @@ export default function App() {
   const { userIdA, tokenA, loginA, logoutA } = UserAuthAgriculteur();
   let routes;
   if (token) {
-    routes = <LandingNav />;
+    routes = <LandingNavClient />;
   } else if (tokenA) {
     routes = <LandingNavAgriculteur />;
   } else {
@@ -31,7 +31,7 @@ export default function App() {
         logoutA: logoutA,
       }}
     >
-      {routes}
+      <LandingNavAgriculteur />
     </Authcontext.Provider>
   );
 }
