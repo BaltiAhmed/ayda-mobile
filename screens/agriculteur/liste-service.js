@@ -9,7 +9,7 @@ import {
   Label,
   H2,
   Content,
-  Button
+  Button,
 } from "native-base";
 import { Authcontext } from "../../context/auth-context";
 import IconAntDesign from "react-native-vector-icons/AntDesign";
@@ -41,7 +41,7 @@ const ListeService = (props) => {
     wait(2000).then(() => setRefreshing(false));
     const sendRequest = async () => {
       const response = await fetch(
-        `http://192.168.1.185:5000/api/competance/codidat/${auth.userId}`
+        `http://192.168.1.185:5000/api/service`
       );
 
       const responseData = await response.json();
@@ -49,7 +49,7 @@ const ListeService = (props) => {
         throw new Error(responseData.message);
       }
 
-      setList(responseData.competences);
+      setList(responseData.service);
     };
     sendRequest();
   }, []);
@@ -77,33 +77,31 @@ const ListeService = (props) => {
   const [prixTotal, setPrixTotal] = useState(null);
 
   const submit = async () => {
+    console.log(idService);
 
-    let response = await fetch(
-      "http://192.168.1.185:5000/api/",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-         
-        }),
-      }
-    );
+    let response = await fetch("http://192.168.1.185:5000/api/demandeService/ajoutDemandeService", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        serviceId: idService,
+        agriculteurId: auth.userIdA,
+        nbrJour:nbrJour,
+        prix:prixTotal
+      }),
+    });
 
     if (!response.ok) {
       let responsedata = await response.json();
-      Alert.alert(
-        'Message',
-        responsedata.message,
-        [{ text: 'fermer' }]
-      );
-     
+      Alert.alert("Message", responsedata.message, [{ text: "fermer" }]);
+
       throw new Error(responsedata.message);
     }
 
-    let responsedata = await response.json();
-    
+    Alert.alert("Message", "Votre demande est enregistrer", [
+      { text: "fermer" },
+    ]);
   };
 
   return (

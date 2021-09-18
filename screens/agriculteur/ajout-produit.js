@@ -55,6 +55,7 @@ const AjoutProduit = (props) => {
     setImage(image);
     props.onImageTaken(image.uri);
   };
+  const auth = useContext(Authcontext)
 
   const postDocument = async () => {
     const url = "http://192.168.1.185:5000/api/produit/ajout";
@@ -71,6 +72,7 @@ const AjoutProduit = (props) => {
     formData.append("prix", prix);
     formData.append("quantite", quantite);
     formData.append("description", Description);
+    formData.append("Agriculteur", auth.userIdA);
     const options = {
       method: "POST",
       body: formData,

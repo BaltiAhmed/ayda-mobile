@@ -31,7 +31,7 @@ export default function App() {
         logoutA: logoutA,
       }}
     >
-      <LandingNavAgriculteur />
+      {routes}
     </Authcontext.Provider>
   );
 }
