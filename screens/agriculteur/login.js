@@ -15,7 +15,6 @@ import { Spinner } from "native-base";
 import { Authcontext } from "../../context/auth-context";
 import { useContext } from "react";
 
-
 const LoginA = (props) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -32,7 +31,7 @@ const LoginA = (props) => {
     setLoading(true);
 
     let response = await fetch(
-      "http://192.168.1.185:5000/api/agriculteur/login",
+      "http://192.168.43.177:5000/api/agriculteur/login",
       {
         method: "POST",
         headers: {
@@ -47,11 +46,7 @@ const LoginA = (props) => {
 
     if (!response.ok) {
       let responsedata = await response.json();
-      Alert.alert(
-        'Message',
-        responsedata.message,
-        [{ text: 'fermer' }]
-      );
+      Alert.alert("Message", responsedata.message, [{ text: "fermer" }]);
       setLoading(false);
       throw new Error(responsedata.message);
     }
@@ -62,7 +57,6 @@ const LoginA = (props) => {
   };
   return (
     <Card style={styles.authContainer}>
-      
       {loading && <Spinner />}
       <ScrollView>
         <View style={styles.formControl}>

@@ -4,12 +4,14 @@ import { createStackNavigator } from "react-navigation-stack";
 import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
 import IconAntDesign from "react-native-vector-icons/AntDesign";
 import IconFontAwesome from "react-native-vector-icons/FontAwesome";
-import Landing from "../screens/client/landing";
+import Catalogue from "../screens/client/catalogue";
+import Detail from "../screens/client/details";
 
 
 const LandingNav = createStackNavigator(
   {
-    Landing: Landing,
+    Catalogue: Catalogue,
+    Detail:Detail
   },
   {
     defaultNavigationOptions: {
