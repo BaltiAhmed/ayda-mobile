@@ -6,6 +6,7 @@ import IconAntDesign from "react-native-vector-icons/AntDesign";
 import IconFontAwesome from "react-native-vector-icons/FontAwesome";
 import Catalogue from "../screens/client/catalogue";
 import Detail from "../screens/client/details";
+import Panier from "../screens/client/panier";
 
 
 const LandingNav = createStackNavigator(
@@ -23,6 +24,21 @@ const LandingNav = createStackNavigator(
   }
 );
 
+const PaniereNav = createStackNavigator(
+  {
+    Panier: Panier,
+
+  },
+  {
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: "#2286c3",
+      },
+      headerTintColor: "white",
+    },
+  }
+);
+
 const AppNav = createMaterialBottomTabNavigator(
   {
     Home: {
@@ -34,6 +50,15 @@ const AppNav = createMaterialBottomTabNavigator(
         tabBarColor: "#0086c3",
       },
     },
+    Panier: {
+      screen: PaniereNav,
+      navigationOptions: {
+        tabBarIcon: (tabInfo) => {
+          return <IconFontAwesome name="cart-plus" size={25} color="#fafafa" />;
+        },
+        tabBarColor: "#0086c3",
+      },
+    },
   },
   {
     activeColor: "white",
@@ -41,4 +66,4 @@ const AppNav = createMaterialBottomTabNavigator(
   }
 );
 
-export default createAppContainer(LandingNav);
+export default createAppContainer(AppNav);

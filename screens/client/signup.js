@@ -23,7 +23,7 @@ const Signup = (props) => {
   const submit = async () => {
     setLoading(true);
     let response = await fetch(
-      "http://192.168.42.17:5000/api/client/signup",
+      "http://192.168.1.185:5000/api/client/signup",
       {
         method: "POST",
         headers: {

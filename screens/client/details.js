@@ -31,7 +31,7 @@ const Detail = (props) => {
     wait(2000).then(() => setRefreshing(false));
     const sendRequest = async () => {
       const response = await fetch(
-        `http://192.168.42.17:5000/api/produitfinal/${id}`
+        `http://192.168.1.185:5000/api/produitfinal/${id}`
       );
 
       const responseData = await response.json();
@@ -52,7 +52,7 @@ const Detail = (props) => {
   useEffect(() => {
     const sendRequest = async () => {
       const response = await fetch(
-        `http://192.168.42.17:5000/api/produitfinal/${id}`
+        `http://192.168.1.185:5000/api/produitfinal/${id}`
       );
 
       const responseData = await response.json();
@@ -77,15 +77,16 @@ const Detail = (props) => {
     setLoading(true);
 
     let response = await fetch(
-      "http://192.168.42.17:5000/api/parent/inscription",
+      "http://192.168.1.185:5000/api/produitfinal/ajoutPanier",
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          IdParent: auth.userId,
-          IdJardin: id,
+          idProduit: id,
+          idClient: auth.userId,
+          prix: PrixT,
         }),
       }
     );
@@ -111,10 +112,10 @@ const Detail = (props) => {
         {list && (
           <View>
             <Image
-              source={{ uri: `http://192.168.42.17:5000/${list.image}` }}
+              source={{ uri: `http://192.168.1.185:5000/${list.image}` }}
               style={styles.image}
             />
-            <View style={{marginTop:-45}}>
+            <View style={{ marginTop: -45 }}>
               <StarRating score={list.scoreT} id={list._id} />
             </View>
             <View style={styles.details}>
