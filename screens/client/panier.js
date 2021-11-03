@@ -9,6 +9,7 @@ import {
   ScrollView,
   Alert,
   Button,
+  Picker,
 } from "react-native";
 import {
   Container,
@@ -43,7 +44,7 @@ const Panier = (props) => {
     wait(2000).then(() => setRefreshing(false));
     const sendRequest = async () => {
       const response = await fetch(
-        `http://192.168.1.185:5000/api/produitfinal/panier/${auth.userId}`
+        `http://192.168.1.46:5000/api/produitfinal/panier/${auth.userId}`
       );
 
       const responseData = await response.json();
@@ -54,10 +55,9 @@ const Panier = (props) => {
       setList(responseData.existingProduit);
     };
     sendRequest();
-
     const sendRequestUser = async () => {
       const response = await fetch(
-        `http://192.168.1.185:5000/api/client/${auth.userId}`
+        `http://192.168.1.46:5000/api/client/${auth.userId}`
       );
 
       const responseData = await response.json();
@@ -75,7 +75,7 @@ const Panier = (props) => {
   useEffect(() => {
     const sendRequest = async () => {
       const response = await fetch(
-        `http://192.168.1.185:5000/api/produitfinal/panier/${auth.userId}`
+        `http://192.168.1.46:5000/api/produitfinal/panier/${auth.userId}`
       );
 
       const responseData = await response.json();
@@ -86,24 +86,37 @@ const Panier = (props) => {
       setList(responseData.existingProduit);
     };
     sendRequest();
+    const sendRequestUser = async () => {
+      const response = await fetch(
+        `http://192.168.1.46:5000/api/client/${auth.userId}`
+      );
+
+      const responseData = await response.json();
+      if (!response.ok) {
+        throw new Error(responseData.message);
+      }
+
+      setUser(responseData.client);
+    };
+    sendRequestUser();
   }, []);
 
   const submit = async () => {
-    let response = await fetch(
-      `http://192.168.1.185:5000/api/commande/ajout`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          idClient: auth.userId,
-          prix: user.prixT,
-          adresse: adresse,
-          gouvernerat: gouvernerat,
-        }),
-      }
-    );
+    let response = await fetch(`http://192.168.1.46:5000/api/commande/ajout`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        idClient: auth.userId,
+        prix: user && user.prixT,
+        frais: selectedValue == "Domicile" ? 5 : 0,
+        livraison: selectedValue,
+        payement: selectedValue1,
+        adresse: adresse,
+        gouvernerat: gouvernerat,
+      }),
+    });
 
     if (!response.ok) {
       let responsedata = await response.json();
@@ -123,7 +136,7 @@ const Panier = (props) => {
 
   const addArticleToOrder = async (id, idArticle) => {
     let response = await fetch(
-      `http://192.168.1.185:5000/api/commande/article/${id}`,
+      `http://192.168.1.46:5000/api/commande/article/${id}`,
       {
         method: "POST",
         headers: {
@@ -141,6 +154,8 @@ const Panier = (props) => {
       throw new Error(responsedata.message);
     }
   };
+  const [selectedValue, setSelectedValue] = useState("Domicile");
+  const [selectedValue1, setSelectedValue1] = useState("PL");
 
   return (
     <ScrollView
@@ -165,7 +180,7 @@ const Panier = (props) => {
               >
                 <Left>
                   <Thumbnail
-                    source={{ uri: `http://192.168.1.185:5000/${row.image}` }}
+                    source={{ uri: `http://192.168.1.46:5000/${row.image}` }}
                   />
                 </Left>
                 <Body>
@@ -180,7 +195,7 @@ const Panier = (props) => {
                       color="red"
                       onPress={async () => {
                         let response = await fetch(
-                          `http://192.168.1.185:5000/api/produitfinal/supprimerPanier`,
+                          `http://192.168.1.46:5000/api/produitfinal/supprimerPanier`,
                           {
                             method: "POST",
                             headers: {
@@ -216,6 +231,15 @@ const Panier = (props) => {
       <Text style={{ marginLeft: "2%", marginTop: 20, fontSize: 20 }}>
         Prix Total: {user && user.prixT}DT
       </Text>
+      {selectedValue == "Domicile" ? (
+        <Text style={{ marginLeft: "2%", marginTop: 20, fontSize: 20 }}>
+          Frais de livraison 5DT
+        </Text>
+      ) : (
+        <Text style={{ marginLeft: "2%", marginTop: 20, fontSize: 20 }}>
+          Frais de livraison 0DT
+        </Text>
+      )}
 
       <View style={styles.buttonContainer}>
         {!valid ? (
@@ -244,6 +268,29 @@ const Panier = (props) => {
                 }}
               />
             </Item>
+            <Text style={{ fontSize: 20 }}>Livraison</Text>
+            <Picker
+              selectedValue={selectedValue}
+              style={{ height: 50, width: 150 }}
+              onValueChange={(itemValue, itemIndex) =>
+                setSelectedValue(itemValue)
+              }
+            >
+              <Picker.Item label="Domicile" value="Domicile" />
+              <Picker.Item label="Société" value="Société" />
+            </Picker>
+            <Text style={{ fontSize: 20 }}>Payement</Text>
+            <Picker
+              selectedValue={selectedValue1}
+              style={{ height: 50, width: 150 }}
+              onValueChange={(itemValue, itemIndex) =>
+                setSelectedValue1(itemValue)
+              }
+              style={{ with: 40 }}
+            >
+              <Picker.Item label="Payement à la livraison" value="PL" />
+              <Picker.Item label="Payement par carte" value="PC" />
+            </Picker>
             <Button
               title="Passer la commande"
               color="#1e88e5"

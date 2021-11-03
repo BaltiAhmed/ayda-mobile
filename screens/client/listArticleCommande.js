@@ -14,21 +14,21 @@ const wait = (timeout) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
 };
 
-const Catalogue = (props) => {
+const ListArticleCommande = (props) => {
   const [refreshing, setRefreshing] = useState(false);
-
+  const id = props.navigation.getParam("id");
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     wait(2000).then(() => setRefreshing(false));
     const sendRequest = async () => {
-      const response = await fetch(`http://192.168.1.46:5000/api/produitfinal/`);
+      const response = await fetch(`http://192.168.1.46:5000/api/produitfinal/commande/${id}`);
 
       const responseData = await response.json();
       if (!response.ok) {
         throw new Error(responseData.message);
       }
 
-      setList(responseData.produit);
+      setList(responseData.existingProduit);
     };
     sendRequest();
   }, []);
@@ -37,14 +37,14 @@ const Catalogue = (props) => {
 
   useEffect(() => {
     const sendRequest = async () => {
-      const response = await fetch(`http://192.168.1.46:5000/api/produitfinal`);
+      const response = await fetch(`http://192.168.1.46:5000/api/produitfinal/commande/${id}`);
 
       const responseData = await response.json();
       if (!response.ok) {
         throw new Error(responseData.message);
       }
 
-      setList(responseData.produit);
+      setList(responseData.existingProduit);
     };
     sendRequest();
   }, []);
@@ -90,9 +90,9 @@ const Catalogue = (props) => {
   );
 };
 
-Catalogue.navigationOptions = (navData) => {
+ListArticleCommande.navigationOptions = (navData) => {
   return {
-    headerTitle: "Acceuil",
+    headerTitle: "Articles",
   };
 };
 
@@ -131,4 +131,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Catalogue;
+export default ListArticleCommande;

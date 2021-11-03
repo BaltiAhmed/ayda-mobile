@@ -31,7 +31,7 @@ const Detail = (props) => {
     wait(2000).then(() => setRefreshing(false));
     const sendRequest = async () => {
       const response = await fetch(
-        `http://192.168.1.185:5000/api/produitfinal/${id}`
+        `http://192.168.1.46:5000/api/produitfinal/${id}`
       );
 
       const responseData = await response.json();
@@ -52,7 +52,7 @@ const Detail = (props) => {
   useEffect(() => {
     const sendRequest = async () => {
       const response = await fetch(
-        `http://192.168.1.185:5000/api/produitfinal/${id}`
+        `http://192.168.1.46:5000/api/produitfinal/${id}`
       );
 
       const responseData = await response.json();
@@ -77,7 +77,7 @@ const Detail = (props) => {
     setLoading(true);
 
     let response = await fetch(
-      "http://192.168.1.185:5000/api/produitfinal/ajoutPanier",
+      "http://192.168.1.46:5000/api/produitfinal/ajoutPanier",
       {
         method: "POST",
         headers: {
@@ -112,7 +112,7 @@ const Detail = (props) => {
         {list && (
           <View>
             <Image
-              source={{ uri: `http://192.168.1.185:5000/${list.image}` }}
+              source={{ uri: `http://192.168.1.46:5000/${list.image}` }}
               style={styles.image}
             />
             <View style={{ marginTop: -45 }}>
