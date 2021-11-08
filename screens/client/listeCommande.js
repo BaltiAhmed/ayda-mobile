@@ -79,17 +79,17 @@ const ListCommande = (props) => {
               </CardItem>
               <CardItem footer>
                 <View
-                  onPress={() => {
+                  
+                >
+                  <Text>Voir listes des articles</Text>
+                  <Entypo name="list" size={25} color="#212121" onPress={() => {
                     props.navigation.navigate({
                       routeName: "ListArticleCommande",
                       params: {
                         id: row._id,
                       },
                     });
-                  }}
-                >
-                  <Text>Voir listes des articles</Text>
-                  <Entypo name="list" size={25} color="#212121" />
+                  }}/>
                 </View>
               </CardItem>
             </Card>

@@ -58,7 +58,7 @@ const AjoutProduit = (props) => {
   const auth = useContext(Authcontext)
 
   const postDocument = async () => {
-    const url = "http://192.168.1.185:5000/api/produit/ajout";
+    const url = "http://192.168.1.46:5000/api/produit/ajout";
     const fileUri = image.uri;
     const newImageUri = "file:///" + fileUri.split("file:/").join("");
     const formData = new FormData();

@@ -41,7 +41,7 @@ const ListeService = (props) => {
     wait(2000).then(() => setRefreshing(false));
     const sendRequest = async () => {
       const response = await fetch(
-        `http://192.168.1.185:5000/api/service`
+        `http://192.168.1.46:5000/api/service`
       );
 
       const responseData = await response.json();
@@ -58,7 +58,7 @@ const ListeService = (props) => {
 
   useEffect(() => {
     const sendRequest = async () => {
-      const response = await fetch(`http://192.168.1.185:5000/api/service`);
+      const response = await fetch(`http://192.168.1.46:5000/api/service`);
 
       const responseData = await response.json();
       if (!response.ok) {
@@ -79,7 +79,7 @@ const ListeService = (props) => {
   const submit = async () => {
     console.log(idService);
 
-    let response = await fetch("http://192.168.1.185:5000/api/demandeService/ajoutDemandeService", {
+    let response = await fetch("http://192.168.1.46:5000/api/demandeService/ajoutDemandeService", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
