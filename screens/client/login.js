@@ -32,7 +32,7 @@ const Login = (props) => {
     setLoading(true);
 
     let response = await fetch(
-      "http://192.168.1.46:5000/api/client/login",
+      "http://192.168.43.177:5000/api/client/login",
       {
         method: "POST",
         headers: {

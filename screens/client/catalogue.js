@@ -8,6 +8,20 @@ import {
   RefreshControl,
   ScrollView,
 } from "react-native";
+import {
+  Container,
+  Header,
+  Item,
+  Input,
+  Icon,
+  Button,
+  List,
+  ListItem,
+  Left,
+  Body,
+  Right,
+  Thumbnail,
+} from "native-base";
 
 
 const wait = (timeout) => {
@@ -21,7 +35,7 @@ const Catalogue = (props) => {
     setRefreshing(true);
     wait(2000).then(() => setRefreshing(false));
     const sendRequest = async () => {
-      const response = await fetch(`http://192.168.1.46:5000/api/produitfinal/`);
+      const response = await fetch(`http://192.168.43.177:5000/api/produitfinal/`);
 
       const responseData = await response.json();
       if (!response.ok) {
@@ -37,7 +51,7 @@ const Catalogue = (props) => {
 
   useEffect(() => {
     const sendRequest = async () => {
-      const response = await fetch(`http://192.168.1.46:5000/api/produitfinal`);
+      const response = await fetch(`http://192.168.43.177:5000/api/produitfinal`);
 
       const responseData = await response.json();
       if (!response.ok) {
@@ -48,14 +62,30 @@ const Catalogue = (props) => {
     };
     sendRequest();
   }, []);
+  const [categorie, setCategorie] = useState("");
   return (
     <ScrollView
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
     >
+      <Item regular>
+        <Input
+          placeholder="Recherche"
+          value={categorie}
+          onChangeText={(text) => {
+            setCategorie(text);
+          }}
+        />
+      </Item>
       {list &&
-        list.map((row) => (
+        list.filter((val) => {
+          if (categorie == "") {
+            return val;
+          } else if (val.categorie.includes(categorie)) {
+            return val;
+          }
+        }).map((row) => (
           <View style={styles.mealItem}>
             <TouchableOpacity
               onPress={() => {
@@ -70,7 +100,7 @@ const Catalogue = (props) => {
               <View>
                 <View style={{ ...styles.MealRow, ...styles.mealHeader }}>
                   <ImageBackground
-                    source={{ uri: `http:/192.168.1.46:5000/${row.image}` }}
+                    source={{ uri: `http:/192.168.43.177:5000/${row.image}` }}
                     style={styles.bgImage}
                   >
                     <Text style={styles.title}>{props.title}</Text>

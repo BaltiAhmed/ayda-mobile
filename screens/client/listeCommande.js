@@ -23,7 +23,7 @@ const ListCommande = (props) => {
     setRefreshing(true);
     wait(2000).then(() => setRefreshing(false));
     const sendRequest = async () => {
-      const response = await fetch(`http://192.168.1.46:5000/api/commande`);
+      const response = await fetch(`http://192.168.43.177:5000/api/commande`);
 
       const responseData = await response.json();
       if (!response.ok) {
@@ -42,7 +42,7 @@ const ListCommande = (props) => {
 
   useEffect(() => {
     const sendRequest = async () => {
-      const response = await fetch(`http://192.168.1.46:5000/api/commande`);
+      const response = await fetch(`http://192.168.43.177:5000/api/commande`);
 
       const responseData = await response.json();
       if (!response.ok) {

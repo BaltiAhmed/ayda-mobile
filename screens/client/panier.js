@@ -44,7 +44,7 @@ const Panier = (props) => {
     wait(2000).then(() => setRefreshing(false));
     const sendRequest = async () => {
       const response = await fetch(
-        `http://192.168.1.46:5000/api/produitfinal/panier/${auth.userId}`
+        `http://192.168.43.177:5000/api/produitfinal/panier/${auth.userId}`
       );
 
       const responseData = await response.json();
@@ -57,7 +57,7 @@ const Panier = (props) => {
     sendRequest();
     const sendRequestUser = async () => {
       const response = await fetch(
-        `http://192.168.1.46:5000/api/client/${auth.userId}`
+        `http://192.168.43.177:5000/api/client/${auth.userId}`
       );
 
       const responseData = await response.json();
@@ -75,7 +75,7 @@ const Panier = (props) => {
   useEffect(() => {
     const sendRequest = async () => {
       const response = await fetch(
-        `http://192.168.1.46:5000/api/produitfinal/panier/${auth.userId}`
+        `http://192.168.43.177:5000/api/produitfinal/panier/${auth.userId}`
       );
 
       const responseData = await response.json();
@@ -88,7 +88,7 @@ const Panier = (props) => {
     sendRequest();
     const sendRequestUser = async () => {
       const response = await fetch(
-        `http://192.168.1.46:5000/api/client/${auth.userId}`
+        `http://192.168.43.177:5000/api/client/${auth.userId}`
       );
 
       const responseData = await response.json();
@@ -102,7 +102,7 @@ const Panier = (props) => {
   }, []);
 
   const submit = async () => {
-    let response = await fetch(`http://192.168.1.46:5000/api/commande/ajout`, {
+    let response = await fetch(`http://192.168.43.177:5000/api/commande/ajout`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -136,7 +136,7 @@ const Panier = (props) => {
 
   const addArticleToOrder = async (id, idArticle) => {
     let response = await fetch(
-      `http://192.168.1.46:5000/api/commande/article/${id}`,
+      `http://192.168.43.177:5000/api/commande/article/${id}`,
       {
         method: "POST",
         headers: {
@@ -180,7 +180,7 @@ const Panier = (props) => {
               >
                 <Left>
                   <Thumbnail
-                    source={{ uri: `http://192.168.1.46:5000/${row.image}` }}
+                    source={{ uri: `http://192.168.43.177:5000/${row.image}` }}
                   />
                 </Left>
                 <Body>
@@ -195,7 +195,7 @@ const Panier = (props) => {
                       color="red"
                       onPress={async () => {
                         let response = await fetch(
-                          `http://192.168.1.46:5000/api/produitfinal/supprimerPanier`,
+                          `http://192.168.43.177:5000/api/produitfinal/supprimerPanier`,
                           {
                             method: "POST",
                             headers: {
