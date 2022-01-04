@@ -31,7 +31,7 @@ const LoginA = (props) => {
     setLoading(true);
 
     let response = await fetch(
-      "http://192.168.1.46:5000/api/agriculteur/login",
+      "http://192.168.43.177:5000/api/agriculteur/login",
       {
         method: "POST",
         headers: {

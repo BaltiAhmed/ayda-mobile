@@ -8,7 +8,8 @@ import IconMaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Landing from "../screens/agriculteur/landing";
 import AjoutProduit from "../screens/agriculteur/ajout-produit";
 import ListeService from "../screens/agriculteur/liste-service";
-
+import ChatScreen from "../screens/agriculteur/chat";
+import AntDesign from "react-native-vector-icons/AntDesign";
 
 const LandingNav = createStackNavigator(
   {
@@ -52,6 +53,20 @@ const ServiceNav = createStackNavigator(
   }
 );
 
+const ChatNav = createStackNavigator(
+  {
+    ChatScreen: ChatScreen,
+  },
+  {
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: "#006400",
+      },
+      headerTintColor: "white",
+    },
+  }
+);
+
 const AppNav = createMaterialBottomTabNavigator(
   {
     Home: {
@@ -67,7 +82,9 @@ const AppNav = createMaterialBottomTabNavigator(
       screen: AjoutProduitNav,
       navigationOptions: {
         tabBarIcon: (tabInfo) => {
-          return <IconFontAwesome name="product-hunt" size={25} color="#fafafa" />;
+          return (
+            <IconFontAwesome name="product-hunt" size={25} color="#fafafa" />
+          );
         },
         tabBarColor: "#0086c3",
       },
@@ -76,11 +93,22 @@ const AppNav = createMaterialBottomTabNavigator(
       screen: ServiceNav,
       navigationOptions: {
         tabBarIcon: (tabInfo) => {
-          return <IconMaterialIcons name="room-service" size={25} color="#fafafa" />;
+          return (
+            <IconMaterialIcons name="room-service" size={25} color="#fafafa" />
+          );
         },
         tabBarColor: "#0086c3",
       },
-    }
+    },
+    Chat: {
+      screen: ChatNav,
+      navigationOptions: {
+        tabBarIcon: (tabInfo) => {
+          return <AntDesign name="message1" size={25} color="#fafafa" />;
+        },
+        tabBarColor: "#006400",
+      },
+    },
   },
   {
     activeColor: "white",

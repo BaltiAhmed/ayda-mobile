@@ -10,12 +10,13 @@ import Detail from "../screens/client/details";
 import Panier from "../screens/client/panier";
 import ListCommande from "../screens/client/listeCommande";
 import ListArticleCommande from "../screens/client/listArticleCommande";
-
+import ChatScreen from "../screens/client/chat";
+import AntDesign from "react-native-vector-icons/AntDesign";
 
 const LandingNav = createStackNavigator(
   {
     Catalogue: Catalogue,
-    Detail:Detail
+    Detail: Detail,
   },
   {
     defaultNavigationOptions: {
@@ -30,7 +31,6 @@ const LandingNav = createStackNavigator(
 const PaniereNav = createStackNavigator(
   {
     Panier: Panier,
-
   },
   {
     defaultNavigationOptions: {
@@ -46,12 +46,25 @@ const CommandeNav = createStackNavigator(
   {
     ListCommande: ListCommande,
     ListArticleCommande: ListArticleCommande,
-
   },
   {
     defaultNavigationOptions: {
       headerStyle: {
         backgroundColor: "#2286c3",
+      },
+      headerTintColor: "white",
+    },
+  }
+);
+
+const ChatNav = createStackNavigator(
+  {
+    ChatScreen: ChatScreen,
+  },
+  {
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: "#006400",
       },
       headerTintColor: "white",
     },
@@ -85,6 +98,15 @@ const AppNav = createMaterialBottomTabNavigator(
           return <Entypo name="list" size={25} color="#fafafa" />;
         },
         tabBarColor: "#0086c3",
+      },
+    },
+    Chat: {
+      screen: ChatNav,
+      navigationOptions: {
+        tabBarIcon: (tabInfo) => {
+          return <AntDesign name="message1" size={25} color="#fafafa" />;
+        },
+        tabBarColor: "#006400",
       },
     },
   },
